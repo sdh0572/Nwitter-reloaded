@@ -3,7 +3,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { Form, Error, Input, Swticher, Title, Wrappper } from "../component/auth-components";
+import { Form, Error, Input, Swticher, Title, Wrapper } from "../component/auth-components";
 import GithubButton from "../component/github-btn";
 
 export default function CreateAccount(){
@@ -47,7 +47,7 @@ export default function CreateAccount(){
         console.log(name, email, password);
     };
     return (
-    <Wrappper>
+    <Wrapper>
     <Title>Join X</Title>
         <Form onSubmit={onSubmit}>
             <Input onChange={onChange} name="name" value={name} placeholder="Name" type="text" required/>
@@ -61,6 +61,6 @@ export default function CreateAccount(){
             <Link to="/login">login</Link>
         </Swticher>
         <GithubButton />
-    </Wrappper>
+    </Wrapper>
     );
 }

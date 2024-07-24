@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Error, Form, Input, Swticher, Title, Wrappper } from "../component/auth-components";
+import { Error, Form, Input, Swticher, Title, Wrapper } from "../component/auth-components";
 import GithubButton from "../component/github-btn";
 
 export default function CreateAccount(){
@@ -40,7 +40,7 @@ export default function CreateAccount(){
         console.log(name, email, password);
     };
     return (
-    <Wrappper>
+    <Wrapper>
     <Title>Login to X</Title>
         <Form onSubmit={onSubmit}>
             <Input onChange={onChange} name="email" value={email} placeholder="Email" type="email" required/>
@@ -53,6 +53,6 @@ export default function CreateAccount(){
             <Link to="/create-account">Create one &rarr;</Link>
         </Swticher>
         <GithubButton />
-    </Wrappper>
+    </Wrapper>
     );
 }

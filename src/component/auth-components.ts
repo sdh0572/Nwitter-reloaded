@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrappper = styled.div`
+export const Wrapper = styled.div`
     height : 100%;
     display : flex;
     flex-direction: column;
