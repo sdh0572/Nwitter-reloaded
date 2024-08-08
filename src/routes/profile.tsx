@@ -12,6 +12,20 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 20px;
+    ::-webkit-scrollbar {
+        margin-left:5px;
+        width:10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: gray;
+        border-radius: 5px;
+        
+    }
+    ::-webkit-scrollbar-track { 
+        background-color: silver;
+        border-radius: 5px;
+        height: 10px;
+    }
 `;
 const AvatarUpload = styled.label`
   width: 80px;
@@ -35,33 +49,45 @@ const AvatarInput = styled.input`
   display: none;
 `;
 const Name = styled.span`
-  font-size: 22px;
+    height:32px;
+    font-size: 22px;
+    line-height: 32px;
+    text-align:center;
 `;
 const Tweets = styled.div`
     display: flex;
     width:100%;
     flex-direction: column;
     gap: 10px;
+    overflow-y: scroll;
+    height: 700px;
 `;
 
+const UpadateName = styled.div`
+    margin-left:7px;
+    width:30px;
+    display:inline-block;
+    position:absolute;
+    cursor: pointer;
+`;
 
 export default function Profile() {
     const user = auth.currentUser;
     const [avatar, setAvatar] = useState(user?.photoURL);
     const [tweets, setTweets] = useState<ITweet[]>([]);
-    const onAvatarChange = async(e:React.ChangeEvent<HTMLInputElement>) => {
-        const{files} = e.target;
-        if(!user) return;
-        if(files && files.length === 1){
+    const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { files } = e.target;
+        if (!user) return;
+        if (files && files.length === 1) {
             const file = files[0];
             const locationRef = ref(storage, `avatars/${user?.uid}`);
             const result = await uploadBytes(locationRef, file);
             const avatarUrl = await getDownloadURL(result.ref);
             setAvatar(avatarUrl);
-            await updateProfile(user, {photoURL:avatarUrl})
+            await updateProfile(user, { photoURL: avatarUrl })
         }
     };
-    const fetchTweets = async() => {
+    const fetchTweets = async () => {
         const tweetQuery = query(
             collection(db, "tweets"),
             where("userId", "==", user?.uid),
@@ -70,14 +96,16 @@ export default function Profile() {
         );
         const snapshot = await getDocs(tweetQuery);
         const tweets = snapshot.docs.map((doc) => {
-            const { tweet, createAt, userId, username, photo} = doc.data();
+            const { tweet, createAt, userId, username, photo } = doc.data();
             return {
                 tweet, createAt, userId, username, photo, id: doc.id
             }
         });
         setTweets(tweets);
     };
-
+    const Update =() => {
+        alert("Are you going to change your name?");
+    }
     useEffect(() => {
         fetchTweets();
     }, []);
@@ -91,9 +119,14 @@ export default function Profile() {
             <AvatarInput onChange={onAvatarChange} id="avatar" type="file" accept="image/*" />
             <Name>
                 {user?.displayName ?? "Anonymous"}
+                <UpadateName onClick={Update}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="size-6">
+                        <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    </svg>
+                </UpadateName>
             </Name>
             <Tweets>
-                {tweets.map(tweet => <Tweet key={tweet.id} {...tweet}/>)}
+                {tweets.map(tweet => <Tweet key={tweet.id} {...tweet} />)}
             </Tweets>
         </Wrapper>
     )

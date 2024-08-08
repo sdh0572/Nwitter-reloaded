@@ -17,6 +17,19 @@ const Menu = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    position: relative;
+    
+    &::after {
+        content: '';    
+        position: absolute;
+        top: -15px;
+        right: 22px; 
+        width: 3px;
+        height: 220px; 
+        background-color: silver;
+        border-radius: 1.5px;
+    }
+    
 `;
 
 const MenuItem = styled.div`
@@ -24,13 +37,13 @@ const MenuItem = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid white;
+    border: 2px solid gray;
     height: 50px;
     width: 50px;
     border-radius: 50%;
     svg{
     width:30px;
-    fill:white;
+    fill:gray;
     }
     &.log-out{
         border-color: tomato;
@@ -39,6 +52,7 @@ const MenuItem = styled.div`
         }
     }
 `;
+
 
 export default function Layout() {
     const navigate = useNavigate();

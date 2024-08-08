@@ -12,12 +12,12 @@ const Form = styled.form`
 `;
 
 const TextArea = styled.textarea`
-    border: 2px solid white;
+    border: 1.5px solid gray;
     padding: 20px;
     border-radius: 20px;
     font-size: 16px;
     color: white;
-    background-color: black;
+    background-color: white;
     width: 100%;
     resize: none;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,

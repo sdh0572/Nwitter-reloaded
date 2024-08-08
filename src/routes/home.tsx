@@ -8,9 +8,22 @@ const Wrapper = styled.div`
     overflow-y: scroll;
     grid-template-rows: 1fr 5fr;
     ::-webkit-scrollbar {
-        display:none; /*하위만 됨*/
+        /*하위만 됨*/
+        margin-left:5px;
+        width:10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: gray;
+        border-radius: 5px;
+        
+    }
+    ::-webkit-scrollbar-track { 
+        background-color: silver;
+        border-radius: 5px;
+        height: 10px;
     }
     scrollbar-width: none; /*하위는 안됨*/
+    
 `;
 export default function Home() {
 
