@@ -83,6 +83,7 @@ export default function PostTweetForm() {
                 createAt: Date.now(),
                 username: user.displayName || "Anonymous",
                 userId: user.uid,
+                heart:0
 
             });
             if(file){
